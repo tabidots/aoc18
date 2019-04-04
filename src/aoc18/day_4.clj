@@ -92,16 +92,20 @@
   (sleepiest-guard-and-minute day-4-input))
 
 (defn highest-frequency-sleepy-minute
-  "Of all guards, which guard is most frequently asleep on the same minute?"
+  "Of all guards, which guard is most frequently asleep on the same minute?
+  What is the ID of the guard you chose multiplied by the minute you chose?"
   [input]
   (->> (parse-log day-4-input)
+       ;; ↓ re-map the data to a new map whose keys are the non-unique
+       ;; frequencies of the most-slept minute of each guard.
        (reduce-kv (fn [m g minutes]
                     (if (empty? minutes) m ;; sanity check because the data is dirty
                       (let [[minute freq] (apply max-key val (frequencies minutes))]
+                        ;; Avoid headaches later by just multiplying ID × minute here
                         (conj m {freq (* g minute)}))))
                   {})
-       (apply max-key key)
-       last))
+       (apply max-key key) ;; get the pair [max-freq id-minute-product]
+       last))              ;; just the id-minute-product, please
 
 (defn part-2 []
   (highest-frequency-sleepy-minute day-4-input))
