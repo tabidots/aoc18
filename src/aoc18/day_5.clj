@@ -34,6 +34,6 @@
   removing all units of exactly one type and fully reacting the result?"
   []
   (->> (range (int \A) (inc (int \Z)))         ;; range from \A to \Z
-       (map #(set [(char %) (char (+ 32 %))])) ;; pairs #{\A \a} ... #{\B \b}
+       (map #(set [(char %) (char (+ 32 %))])) ;; pairs #{\A \a} ... #{\Z \z}
        (map #(count (trigger (remove % day-5-input))))
        (apply min)))
