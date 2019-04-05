@@ -95,7 +95,7 @@
   "Of all guards, which guard is most frequently asleep on the same minute?
   What is the ID of the guard you chose multiplied by the minute you chose?"
   [input]
-  (->> (parse-log day-4-input)
+  (->> (parse-log input)
        ;; ↓ re-map the data to a new map whose keys are the non-unique
        ;; frequencies of the most-slept minute of each guard.
        (reduce-kv (fn [m g minutes]
